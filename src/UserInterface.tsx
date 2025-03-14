@@ -245,15 +245,7 @@ export const UserInterface: React.FC<UserInterfaceProps> = ({
                 await storageManager.addWalletStorageProvider(client);
 
                 // Setup permissions with provided callbacks.
-                const permissionsManager = new WalletPermissionsManager(wallet, adminOriginator, {
-                    // TODO: Re-enable permissions once they are fully working.
-                    seekPermissionsForPublicKeyRevelation: false,
-                    seekProtocolPermissionsForSigning: false,
-                    seekProtocolPermissionsForEncrypting: false,
-                    seekProtocolPermissionsForHMAC: false,
-                    seekPermissionsForIdentityKeyRevelation: false,
-                    seekPermissionsForKeyLinkageRevelation: false
-                });
+                const permissionsManager = new WalletPermissionsManager(wallet, adminOriginator);
                 permissionsManager.bindCallback('onProtocolPermissionRequested', protocolPermissionCallback);
                 permissionsManager.bindCallback('onBasketAccessRequested', basketAccessCallback);
                 permissionsManager.bindCallback('onSpendingAuthorizationRequested', spendingAuthorizationCallback);

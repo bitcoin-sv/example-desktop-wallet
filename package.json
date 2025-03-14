@@ -10,7 +10,7 @@
     "tauri": "tauri"
   },
   "dependencies": {
-    "@bsv/sdk": "^1.4.0",
+    "@bsv/sdk": "^1.4.3",
     "@bsv/wallet-toolbox-client": "^1.2.3",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
@@ -20,6 +20,7 @@
     "@tauri-apps/api": "^2.2.0",
     "@tauri-apps/plugin-opener": "^2",
     "boomerang-http": "^0.1.0",
+    "date-fns": "^4.1.0",
     "fuse.js": "^7.1.0",
     "react": "^18.3.1",
     "react-country-region-selector": "^4.0.2",

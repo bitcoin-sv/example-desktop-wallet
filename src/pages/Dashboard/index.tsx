@@ -14,7 +14,6 @@ import {
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser'
 import {
   List,
-  ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
@@ -24,15 +23,14 @@ import {
 import Profile from '../../components/Profile.jsx'
 import { WalletContext } from '../../UserInterface'
 import PageLoading from '../../components/PageLoading.js'
-import Apps from './Apps'
 
 // pages
 
-// import AppAccess from './AppAccess/index.jsx'
+import AppAccess from './AppAccess/index.jsx'
 import Trust from './Trust/index.js'
 import MyIdentity from './MyIdentity/index.js'
-// import Apps from './Apps/index.jsx'
-// import App from './App/Index.jsx'
+import Apps from './Apps/index'
+import App from './App/index'
 import Settings from './Settings/index'
 // import BasketAccess from './BasketAccess/index.jsx'
 // import CertificateAccess from './CertificateAccess/index.jsx'
@@ -51,7 +49,7 @@ const Dashboard = () => {
   const classes = useStyles({ breakpoints })
   const theme = useTheme()
   const history = useHistory()
-  const { appName, appVersion, managers } = useContext(WalletContext)
+  const { appName, appVersion, managers, adminOriginator } = useContext(WalletContext)
   const [pageLoading, setPageLoading] = useState(true)
   const [myIdentityKey, setMyIdentityKey] = useState('self')
   const [menuOpen, setMenuOpen] = useState(true)
@@ -111,7 +109,7 @@ const Dashboard = () => {
     (async () => {
       if (managers.walletManager!.authenticated) {
         setPageLoading(false)
-        const { publicKey } = await managers.walletManager!.getPublicKey({ identityKey: true })
+        const { publicKey } = await managers.permissionsManager!.getPublicKey({ identityKey: true }, adminOriginator)
         setMyIdentityKey(publicKey)
       }
     })()
@@ -147,37 +145,6 @@ const Dashboard = () => {
                 Apps
               </ListItemText>
             </ListItemButton>
-            {/* <ListItem disabled
-              button
-              onClick={() => navigation.push('/dashboard/trends')}
-              selected={
-                history.location.pathname === '/dashboard/trends'
-              }
-            >
-              <ListItemIcon>
-              <TrendsIcon
-              />
-              </ListItemIcon>
-              <ListItemText>
-                Trends
-              </ListItemText>
-            </ListItem>
-            <ListItem disabled
-              button
-              onClick={() =>
-                navigation.push('/dashboard/access')}
-              selected={
-                history.location.pathname === '/dashboard/access'
-              }
-            >
-              <ListItemIcon>
-                <AccessIcon
-                />
-              </ListItemIcon>
-              <ListItemText>
-                Access
-              </ListItemText>
-            </ListItem> */}
             <ListItemButton
               onClick={() => {
                 navigation.push({
@@ -254,14 +221,14 @@ const Dashboard = () => {
         <Switch>
           <Redirect from='/dashboard/counterparty/self' to={`/dashboard/counterparty/${myIdentityKey}`} />
           <Redirect from='/dashboard/counterparty/anyone' to='/dashboard/counterparty/0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798' />
-          {/* <Route
+          <Route
             path='/dashboard/manage-app/:originator'
             component={AppAccess}
           />
           <Route
             path='/dashboard/app/:app'
             component={App}
-          />*/}
+          />
           <Route
             path='/dashboard/settings'
             component={Settings}
